@@ -1,163 +1,153 @@
 {
-  "id": "dde4209a-eb8d-44f6-9033-7073765e6114",
-  "prevId": "c163f105-db7b-4314-8a3c-730115d0c34a",
-  "version": "6",
-  "dialect": "postgresql",
-  "tables": {
-    "public.user_profile_picture": {
-      "name": "user_profile_picture",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
+    "id": "dde4209a-eb8d-44f6-9033-7073765e6114",
+    "prevId": "c163f105-db7b-4314-8a3c-730115d0c34a",
+    "version": "6",
+    "dialect": "postgresql",
+    "tables": {
+        "public.user_profile_picture": {
+            "name": "user_profile_picture",
+            "schema": "",
+            "columns": {
+                "id": {
+                    "name": "id",
+                    "type": "text",
+                    "primaryKey": true,
+                    "notNull": true
+                },
+                "angle": {
+                    "name": "angle",
+                    "type": "smallint",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": 45
+                },
+                "color_1": {
+                    "name": "color_1",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "'#00000000'"
+                }
+            },
+            "indexes": {},
+            "foreignKeys": {
+                "user_profile_picture_id_user_id_fk": {
+                    "name": "user_profile_picture_id_user_id_fk",
+                    "tableFrom": "user_profile_picture",
+                    "tableTo": "user",
+                    "columnsFrom": ["id"],
+                    "columnsTo": ["id"],
+                    "onDelete": "no action",
+                    "onUpdate": "no action"
+                }
+            },
+            "compositePrimaryKeys": {},
+            "uniqueConstraints": {}
         },
-        "angle": {
-          "name": "angle",
-          "type": "smallint",
-          "primaryKey": false,
-          "notNull": true,
-          "default": 45
+        "public.session": {
+            "name": "session",
+            "schema": "",
+            "columns": {
+                "id": {
+                    "name": "id",
+                    "type": "text",
+                    "primaryKey": true,
+                    "notNull": true
+                },
+                "user_id": {
+                    "name": "user_id",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "passed_two_factor": {
+                    "name": "passed_two_factor",
+                    "type": "boolean",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "expires_at": {
+                    "name": "expires_at",
+                    "type": "timestamp with time zone",
+                    "primaryKey": false,
+                    "notNull": true
+                }
+            },
+            "indexes": {},
+            "foreignKeys": {
+                "session_user_id_user_id_fk": {
+                    "name": "session_user_id_user_id_fk",
+                    "tableFrom": "session",
+                    "tableTo": "user",
+                    "columnsFrom": ["user_id"],
+                    "columnsTo": ["id"],
+                    "onDelete": "no action",
+                    "onUpdate": "no action"
+                }
+            },
+            "compositePrimaryKeys": {},
+            "uniqueConstraints": {}
         },
-        "color_1": {
-          "name": "color_1",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "'#00000000'"
+        "public.user": {
+            "name": "user",
+            "schema": "",
+            "columns": {
+                "id": {
+                    "name": "id",
+                    "type": "text",
+                    "primaryKey": true,
+                    "notNull": true
+                },
+                "username": {
+                    "name": "username",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "password_hash": {
+                    "name": "password_hash",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "two_factor_secret": {
+                    "name": "two_factor_secret",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "confirmed_two_factor": {
+                    "name": "confirmed_two_factor",
+                    "type": "boolean",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": false
+                },
+                "reserved_at": {
+                    "name": "reserved_at",
+                    "type": "timestamp with time zone",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                }
+            },
+            "indexes": {},
+            "foreignKeys": {},
+            "compositePrimaryKeys": {},
+            "uniqueConstraints": {
+                "user_username_unique": {
+                    "name": "user_username_unique",
+                    "nullsNotDistinct": false,
+                    "columns": ["username"]
+                }
+            }
         }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "user_profile_picture_id_user_id_fk": {
-          "name": "user_profile_picture_id_user_id_fk",
-          "tableFrom": "user_profile_picture",
-          "tableTo": "user",
-          "columnsFrom": [
-            "id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
     },
-    "public.session": {
-      "name": "session",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "user_id": {
-          "name": "user_id",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "passed_two_factor": {
-          "name": "passed_two_factor",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "expires_at": {
-          "name": "expires_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "session_user_id_user_id_fk": {
-          "name": "session_user_id_user_id_fk",
-          "tableFrom": "session",
-          "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "public.user": {
-      "name": "user",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "username": {
-          "name": "username",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "password_hash": {
-          "name": "password_hash",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "two_factor_secret": {
-          "name": "two_factor_secret",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "confirmed_two_factor": {
-          "name": "confirmed_two_factor",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": true,
-          "default": false
-        },
-        "reserved_at": {
-          "name": "reserved_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {
-        "user_username_unique": {
-          "name": "user_username_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "username"
-          ]
-        }
-      }
-    }
-  },
-  "enums": {},
-  "schemas": {},
-  "_meta": {
-    "columns": {},
+    "enums": {},
     "schemas": {},
-    "tables": {}
-  }
+    "_meta": {
+        "columns": {},
+        "schemas": {},
+        "tables": {}
+    }
 }

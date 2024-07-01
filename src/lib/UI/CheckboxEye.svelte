@@ -8,7 +8,7 @@
     let eye: HTMLSpanElement;
     let applyAnimation = false;
 
-    const scaleEye = (event: Event) => {
+    const scaleEye = () => {
         applyAnimation = true;
         setTimeout(() => {
             applyAnimation = false;

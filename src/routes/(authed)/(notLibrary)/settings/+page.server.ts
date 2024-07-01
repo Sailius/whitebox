@@ -9,10 +9,10 @@ import { zod } from 'sveltekit-superforms/adapters';
 
 export const load = async (event) => {
     const { defaultPfpBlock } = await event.parent();
-        
+
     const form = await superValidate(defaultPfpBlock, zod(pfpSchema));
 
-    return {form, defaultPfpBlock}
+    return { form, defaultPfpBlock };
 };
 
 export const actions = {
@@ -29,7 +29,7 @@ export const actions = {
             .set({
                 angle: form.data.angle,
                 color1: setOpacity(form.data.color1, form.data.opacity1),
-                color2: setOpacity(form.data.color2, form.data.opacity2),
+                color2: setOpacity(form.data.color2, form.data.opacity2)
             })
             .where(eq(pfpTable.userId, event.locals.user!.id));
     },

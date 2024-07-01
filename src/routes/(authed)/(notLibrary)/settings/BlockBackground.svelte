@@ -24,25 +24,29 @@
             const timeForOneChange = 250 / transparencyDifference;
             const changeTransparency = () => {
                 if ($transparency < $settings.background.darkening) {
-                    $transparency++
+                    $transparency++;
                     setTimeout(changeTransparency, timeForOneChange);
                 } else if ($transparency > $settings.background.darkening) {
-                    $transparency--
+                    $transparency--;
                     setTimeout(changeTransparency, timeForOneChange);
                 }
-            }
+            };
             changeTransparency();
         }
-    }
+    };
 
     const setDarkening = async () => {
-        await idb.settings.where('username').equals(username!).modify(
-            {"background.darkening": $transparency}
-        );
-    }
+        await idb.settings
+            .where('username')
+            .equals(username!)
+            .modify({ 'background.darkening': $transparency });
+    };
 
     $: if (bodyDarkeningCoat) {
-        bodyDarkeningCoat.style.setProperty('--color-bg-coat', setOpacity('#000000', $transparency));
+        bodyDarkeningCoat.style.setProperty(
+            '--color-bg-coat',
+            setOpacity('#000000', $transparency)
+        );
     }
 
     $: {
@@ -58,9 +62,9 @@
 <Block heightRem12 grow>
     <svelte:fragment>
         <div class="grid">
-            <header class:disable={
-                !$settings?.background.isPicture ?? false}
-            >Darken the background</header>
+            <header class:disable={!$settings?.background.isPicture ?? false}>
+                Darken the background
+            </header>
             <div class="content">
                 <input
                     type="range"
@@ -81,17 +85,17 @@
             </div>
             <div class="buttons">
                 <button
-                    disabled={(
-                        $transparency === $settings?.background.darkening ||
-                        !$settings?.background.isPicture) ?? false}
-                    on:click={resetDarkening}
-                >Reset</button>
+                    disabled={($transparency === $settings?.background.darkening ||
+                        !$settings?.background.isPicture) ??
+                        false}
+                    on:click={resetDarkening}>Reset</button
+                >
                 <button
-                    disabled={(
-                        $transparency === $settings?.background.darkening ||
-                        !$settings?.background.isPicture) ?? false}
-                    on:click={setDarkening}
-                >Save</button>
+                    disabled={($transparency === $settings?.background.darkening ||
+                        !$settings?.background.isPicture) ??
+                        false}
+                    on:click={setDarkening}>Save</button
+                >
             </div>
         </div>
     </svelte:fragment>

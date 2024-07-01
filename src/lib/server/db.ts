@@ -47,46 +47,66 @@ export const sessionTable = pgTable('session', {
 });
 
 export const pfpTable = pgTable('user_profile_picture', {
-    userId: text('user_id').primaryKey().references(() => userTable.id),
+    userId: text('user_id')
+        .primaryKey()
+        .references(() => userTable.id),
     angle: smallint('angle').notNull().default(45),
     color1: text('color_1').notNull().default('#888888ff'),
     color2: text('color_2').notNull().default('#00000000')
 });
 
-export const libraryTable = pgTable('user_shelfs', {
-    shelfId: text('shelf_id').primaryKey(),
-    userId: text('user_id').notNull().references(() => userTable.id),
-    shelfName: text('shelf_name').notNull(),
-    shelfOrder: smallint('shelf_order').notNull(),
-    shelfStarOrder: smallint('shelf_star_order')
-}, (table) => ({
-    uniqueTogetherName: unique('uniqueName').on(table.userId, table.shelfName),
-    uniqueTogetherOrder: unique('uniqueOrder').on(table.userId, table.shelfOrder)
-}));
+export const libraryTable = pgTable(
+    'user_shelfs',
+    {
+        shelfId: text('shelf_id').primaryKey(),
+        userId: text('user_id')
+            .notNull()
+            .references(() => userTable.id),
+        shelfName: text('shelf_name').notNull(),
+        shelfOrder: smallint('shelf_order').notNull(),
+        shelfStarOrder: smallint('shelf_star_order')
+    },
+    (table) => ({
+        uniqueTogetherName: unique('uniqueName').on(table.userId, table.shelfName),
+        uniqueTogetherOrder: unique('uniqueOrder').on(table.userId, table.shelfOrder)
+    })
+);
 
-export const shelfTable = pgTable('shelf_books', {
-    bookId: text('book_id').primaryKey(),
-    shelfId: text('shelf_id').notNull().references(() => libraryTable.shelfId),
-    bookName: text('book_name').notNull(),
-    bookOrder: smallint('shelf_order').notNull()
-}, (table) => ({
-    uniqueTogetherName: unique('uniqueName').on(table.shelfId, table.bookName),
-    uniqueTogetherOrder: unique('uniqueOrder').on(table.shelfId, table.bookOrder)
-}));
+export const shelfTable = pgTable(
+    'shelf_books',
+    {
+        bookId: text('book_id').primaryKey(),
+        shelfId: text('shelf_id')
+            .notNull()
+            .references(() => libraryTable.shelfId),
+        bookName: text('book_name').notNull(),
+        bookOrder: smallint('shelf_order').notNull()
+    },
+    (table) => ({
+        uniqueTogetherName: unique('uniqueName').on(table.shelfId, table.bookName),
+        uniqueTogetherOrder: unique('uniqueOrder').on(table.shelfId, table.bookOrder)
+    })
+);
 
 export const bookTable = pgTable('book_content', {
     noteId: text('note_id').primaryKey(),
-    bookId: text('book_id').notNull().references(() => shelfTable.bookId),
+    bookId: text('book_id')
+        .notNull()
+        .references(() => shelfTable.bookId),
     noteContent: text('note_content').notNull(),
     isPinned: boolean('is_pinned').notNull().default(false),
     createdAt: timestamp('created_at', {
         withTimezone: true,
         mode: 'date'
-    }).notNull().defaultNow(),
+    })
+        .notNull()
+        .defaultNow(),
     updatedAt: timestamp('updated_at', {
         withTimezone: true,
         mode: 'date'
-    }).notNull().defaultNow()
+    })
+        .notNull()
+        .defaultNow()
 });
 
 // Adapter for lucia-auth:

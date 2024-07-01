@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { enhance } from "$app/forms";
-    import { idb } from "$lib/idb";
-    import Block from "$lib/UI/Blocks/Block.svelte";
+    import { enhance } from '$app/forms';
+    import { idb } from '$lib/idb';
+    import Block from '$lib/UI/Blocks/Block.svelte';
 
     export let username: string = '';
 
@@ -10,8 +10,9 @@
         idb.settings.delete(username);
         const formNode = event.target as HTMLFormElement;
         formNode.submit();
-    }
+    };
 </script>
+
 <Block heightRem12 grow>
     <svelte:fragment>
         <div class="buttons">

@@ -22,7 +22,7 @@
         mask: url(/svg/sendRight.svg) no-repeat center;
         width: 2rem;
         height: 2rem;
-        right: .75rem;
+        right: 0.75rem;
     }
 
     textarea {

@@ -4,7 +4,6 @@
     import BookList from '../BookList.svelte';
     import Description from '../Description.svelte';
     import BookContent from './BookContent.svelte';
-    import { noopEncoder } from 'drizzle-orm';
 
     // export let data;
 
@@ -48,7 +47,11 @@
         {#each library as shelf (shelf.id)}
             <div class="shelf">
                 <div class="shelfNameLine">
-                    <CheckboxShelf id={`shelf_${shelf.id}`} text={shelf.text} bind:checked={shelf.open} />
+                    <CheckboxShelf
+                        id={`shelf_${shelf.id}`}
+                        text={shelf.text}
+                        bind:checked={shelf.open}
+                    />
                     <div class="points">
                         <button
                             on:click={() => {
@@ -57,10 +60,13 @@
                             class:marked={shelf.starOrder}
                             class="star"
                         />
-                        <button class="gear" on:click={() => {
-                            deleteShelf = !deleteShelf
-                        }} />
-                        <button class="plus" class:deleteShelf/>
+                        <button
+                            class="gear"
+                            on:click={() => {
+                                deleteShelf = !deleteShelf;
+                            }}
+                        />
+                        <button class="plus" class:deleteShelf />
                     </div>
                 </div>
                 <BookList {shelf} />
@@ -159,7 +165,9 @@
         box-shadow: none;
     }
 
-    .gear:hover, .plus:hover, .star:hover {
+    .gear:hover,
+    .plus:hover,
+    .star:hover {
         background-color: var(--color-fg-2);
     }
 
@@ -186,7 +194,7 @@
         mask-image: url(/svg/star.svg);
         transform: scale(0.8);
     }
-    
+
     .star.marked {
         background-color: var(--color-fg-1);
     }

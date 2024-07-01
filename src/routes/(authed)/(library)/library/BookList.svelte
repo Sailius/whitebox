@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { page } from "$app/stores";
+    import { page } from '$app/stores';
 
     export let shelf: {
         id: number;
@@ -16,16 +16,15 @@
 <div class="books">
     {#each shelf.books as book (book.id)}
         {#if shelf.open || (!shelf.open && $page.url.pathname === book.href)}
-            <a
-                class="book"
-                href={book.href}
-                aria-current={$page.url.pathname === book.href}
-            >
+            <a class="book" href={book.href} aria-current={$page.url.pathname === book.href}>
                 <div class="book_image" />
                 {book.text}
-                <button class="gear_image" on:click={(e) => {
-                    e.preventDefault();
-                }}/>
+                <button
+                    class="gear_image"
+                    on:click={(e) => {
+                        e.preventDefault();
+                    }}
+                />
             </a>
         {/if}
     {/each}
@@ -90,7 +89,9 @@
         background-color: var(--color-fg-3);
         mask-image: url(/svg/gear.svg);
         transform: scale(0.9);
-        transition: background-color 0.25s ease, transform 0.25s ease;
+        transition:
+            background-color 0.25s ease,
+            transform 0.25s ease;
         padding: 0;
         border-radius: unset;
         box-shadow: none;

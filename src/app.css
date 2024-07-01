@@ -263,7 +263,7 @@ textarea::-webkit-scrollbar-thumb {
     cursor: default;
     border: solid transparent;
     border-width: 0.25rem;
-    border-radius: .5rem;
+    border-radius: 0.5rem;
     background-color: var(--color-fg-1);
     background-clip: padding-box;
 }

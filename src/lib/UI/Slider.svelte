@@ -7,10 +7,10 @@
     let sliderNode: HTMLElement;
 
     const toggleOnEnter = (event: KeyboardEvent) => {
-        if (event.key === "Enter" && sliderNode) {
+        if (event.key === 'Enter' && sliderNode) {
             sliderNode.click();
         }
-    }
+    };
 </script>
 
 {#if text !== ''}
@@ -20,24 +20,15 @@
             <input type="checkbox" bind:checked on:change={onSlide} />
             <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
             <!-- svelte-ignore a11y-no-static-element-interactions -->
-            <span
-                class="slider"
-                tabindex={0}
-                bind:this={sliderNode}
-                on:keypress={toggleOnEnter}
+            <span class="slider" tabindex={0} bind:this={sliderNode} on:keypress={toggleOnEnter}
             ></span>
         </label>
     </div>
 {:else}
     <label class="switch">
-        <input type="checkbox" bind:checked on:change={onSlide}/>
-        <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+        <input type="checkbox" bind:checked on:change={onSlide} />
         <!-- svelte-ignore a11y-no-static-element-interactions -->
-        <span
-            class="slider"
-            bind:this={sliderNode}
-            on:keypress={toggleOnEnter}
-        ></span>
+        <span class="slider" bind:this={sliderNode} on:keypress={toggleOnEnter}></span>
     </label>
 {/if}
 

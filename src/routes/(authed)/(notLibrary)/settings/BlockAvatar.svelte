@@ -6,7 +6,6 @@
     import Block from '$lib/UI/Blocks/Block.svelte';
     import Account from '$lib/UI/Navigation/Account.svelte';
     import AvatarColorPicker from './AvatarColorPicker.svelte';
-    import { tweened } from 'svelte/motion';
 
     export let username: string = '?';
     export let data: SuperValidated<Infer<PfpSchema>>;
@@ -18,16 +17,15 @@
         opacity2: number;
     };
 
-    const { form, enhance, delayed } = superForm(data);
+    const { form, enhance } = superForm(data); // add delayed.
 
     const resetData = (event: Event) => {
         event.preventDefault();
-        
+
         $form.angle = defaultData.angle;
 
         $form.color1 = defaultData.color1;
         $form.color2 = defaultData.color2;
-
 
         const difference1 = Math.abs($form.opacity1 - defaultData.opacity1);
         const difference2 = Math.abs($form.opacity2 - defaultData.opacity2);
@@ -35,27 +33,27 @@
         const timeForOneChange2 = 250 / difference2;
         const changeTransparency1 = () => {
             if ($form.opacity1 < defaultData.opacity1) {
-                $form.opacity1++
+                $form.opacity1++;
                 setTimeout(changeTransparency1, timeForOneChange1);
             } else if ($form.opacity1 > defaultData.opacity1) {
-                $form.opacity1--
+                $form.opacity1--;
                 setTimeout(changeTransparency1, timeForOneChange1);
             }
-        }
+        };
 
         const changeTransparency2 = () => {
             if ($form.opacity2 < defaultData.opacity2) {
-                $form.opacity2++
+                $form.opacity2++;
                 setTimeout(changeTransparency2, timeForOneChange2);
             } else if ($form.opacity2 > defaultData.opacity2) {
-                $form.opacity2--
+                $form.opacity2--;
                 setTimeout(changeTransparency2, timeForOneChange2);
             }
-        }
+        };
 
         changeTransparency1();
         changeTransparency2();
-    }
+    };
 
     let angle: number;
     let color1: string;
@@ -63,7 +61,8 @@
 
     $: {
         // as any as number is set so user can see a placeholder. Not always go to pre-set '0'.
-        $form.angle = $form.angle !== Math.floor($form.angle) ? '' as any as number : $form.angle;
+        $form.angle =
+            $form.angle !== Math.floor($form.angle) ? ('' as unknown as number) : $form.angle;
         $form.angle = $form.angle > 360 ? 360 : $form.angle;
         $form.angle = $form.angle < 0 ? 0 : $form.angle;
         angle = $form.angle;
@@ -115,16 +114,18 @@
             </div>
             <form id="setPfp" class="buttons" method="post" action="?/setPfp" use:enhance>
                 <button
-                    disabled={(
-                        color1 === setOpacity(defaultData.color1, defaultData.opacity1) &&
+                    disabled={(color1 === setOpacity(defaultData.color1, defaultData.opacity1) &&
                         color2 === setOpacity(defaultData.color2, defaultData.opacity2) &&
-                        angle === defaultData.angle) ?? false}
-                    on:click={resetData}
-                >Reset</button>
-                <button disabled={(
-                    color1 === setOpacity(defaultData.color1, defaultData.opacity1) &&
-                    color2 === setOpacity(defaultData.color2, defaultData.opacity2) &&
-                    angle === defaultData.angle) ?? false}>Save</button>
+                        angle === defaultData.angle) ??
+                        false}
+                    on:click={resetData}>Reset</button
+                >
+                <button
+                    disabled={(color1 === setOpacity(defaultData.color1, defaultData.opacity1) &&
+                        color2 === setOpacity(defaultData.color2, defaultData.opacity2) &&
+                        angle === defaultData.angle) ??
+                        false}>Save</button
+                >
             </form>
         </div>
     </svelte:fragment>

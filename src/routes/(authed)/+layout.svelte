@@ -14,11 +14,13 @@
 
     const setLocalSettings = async () => {
         try {
-            const establishedSettings = await idb.settings.where({
-                username: data.username
-            }).first();
+            const establishedSettings = await idb.settings
+                .where({
+                    username: data.username
+                })
+                .first();
 
-            if (!establishedSettings) { 
+            if (!establishedSettings) {
                 await idb.settings.add({
                     username: data.username,
                     background: {
@@ -29,10 +31,10 @@
                 });
             }
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     };
-    
+
     let settings = liveQuery(() => idb.settings.where('username').equals(data.username!).first());
 
     $: bodyNode = browser ? document.querySelector('body') : null;

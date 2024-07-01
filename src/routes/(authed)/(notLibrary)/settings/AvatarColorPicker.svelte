@@ -17,7 +17,7 @@
 
 <div class="color_pick">
     <label bind:this={colorLabel}>
-        <input type="color" bind:value={color} {form} name={colorName}/>
+        <input type="color" bind:value={color} {form} name={colorName} />
     </label>
     <input
         type="range"

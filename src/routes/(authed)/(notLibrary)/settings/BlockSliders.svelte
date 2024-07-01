@@ -1,7 +1,7 @@
 <script lang="ts">
     import { liveQuery } from 'dexie';
     import { idb } from '$lib/idb';
-    import Block from "$lib/UI/Blocks/Block.svelte";
+    import Block from '$lib/UI/Blocks/Block.svelte';
     import Slider from '$lib/UI/Slider.svelte';
     import { transparency } from './store';
     export let username: string = '';
@@ -23,26 +23,26 @@
             const timeForOneChange = 250 / transparencyDifference;
             const changeTransparency = () => {
                 if ($transparency < $settings.background.darkening) {
-                    $transparency++
+                    $transparency++;
                     setTimeout(changeTransparency, timeForOneChange);
                 } else if ($transparency > $settings.background.darkening) {
-                    $transparency--
+                    $transparency--;
                     setTimeout(changeTransparency, timeForOneChange);
                 }
-            }
+            };
             changeTransparency();
         }
-        await idb.settings.where('username').equals(username).modify(
-            {"background.isPicture": backgroundIsPicture}
-        );
-    }
+        await idb.settings
+            .where('username')
+            .equals(username)
+            .modify({ 'background.isPicture': backgroundIsPicture });
+    };
 
     const toggleTreeView = async () => {
-        await idb.settings.where('username').equals(username).modify(
-            {treeView: deskTreeView}
-        );
-    }
+        await idb.settings.where('username').equals(username).modify({ treeView: deskTreeView });
+    };
 </script>
+
 <Block heightRem12 grow>
     <svelte:fragment>
         <div class="settings">
@@ -51,11 +51,7 @@
                 bind:checked={backgroundIsPicture}
                 onSlide={toggleBgPicture}
             />
-            <Slider
-                text={'Desk tree view'}
-                bind:checked={deskTreeView}
-                onSlide={toggleTreeView}
-            />
+            <Slider text={'Desk tree view'} bind:checked={deskTreeView} onSlide={toggleTreeView} />
         </div>
     </svelte:fragment>
 </Block>

@@ -1,7 +1,7 @@
 <script>
-    import Block from "$lib/UI/Blocks/Block.svelte";
-
+    import Block from '$lib/UI/Blocks/Block.svelte';
 </script>
+
 <div class="description">
     <Block width100 heightFit>
         <svelte:fragment>
@@ -48,7 +48,9 @@
         align-items: center;
     }
 
-    .gear, .plus, .star {
+    .gear,
+    .plus,
+    .star {
         display: inline-block;
         width: 1rem;
         height: 1rem;
