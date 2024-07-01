@@ -1,0 +1,300 @@
+@import '$lib/UI/fonts/montserrat.css';
+
+:root {
+    --color-fg-1: #eee;
+    --color-fg-2: #ccc;
+    --color-fg-3: #888;
+    --color-fg-red: #c87f7f;
+    --color-contrast-fg-1: #111; /* Selection text color */
+    --color-bg-1: #181819;
+    --color-bg-2: #111111cc;
+    --color-bg-3: #7679c747; /* UI element: true */
+    --color-bg-coat: #00000080; /* Darken the background */
+    --color-contrast-bg-1: #cccccc50; /* UI element: false */
+    --color-contrast-bg-2: #dadada9a; /* Selection background */
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scrollbar-width: thin;
+    /* scrollbar-color: var(--color-fg-1) var(--color-bg-1); */
+}
+
+li {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+}
+a:link,
+a:visited {
+    color: inherit;
+}
+
+textarea {
+    resize: none;
+    color: var(--color-fg-1);
+    background-color: var(--color-bg-2);
+    font-family: 'Montserrat';
+    font-weight: 500;
+    border: none;
+    border-radius: 0.25rem;
+    box-shadow: inset 0 0 0.1rem var(--color-fg-3);
+    padding: 0.5rem;
+}
+
+textarea:focus {
+    outline: 0;
+    box-shadow: inset 0 0 0.1rem var(--color-fg-3);
+}
+
+input[type='text'],
+input[type='password'],
+input[type='number'] {
+    height: 1.5rem;
+    color: var(--color-fg-1);
+    border: 0;
+    border-radius: 0.75rem;
+    background-color: var(--color-bg-3);
+    box-shadow: inset 0 0 0.25rem var(--color-bg-1);
+    transition: 0.1s ease;
+    outline: none;
+    padding: 0 10px 0 10px;
+}
+
+input:focus {
+    outline: 0;
+    box-shadow: none;
+}
+
+input[type='text']:focus,
+input[type='password']:focus,
+input[type='number']:focus {
+    box-shadow: inset 0 0 0.25rem var(--color-fg-1);
+}
+
+input[type='text']::placeholder,
+input[type='password']::placeholder,
+input[type='number']::placeholder {
+    font-size: 0.75rem;
+    color: var(--color-fg-3);
+}
+
+input[type='number'] {
+    appearance: textfield;
+}
+
+input[type='number']:disabled {
+    cursor: default;
+    background-color: var(--color-contrast-bg-1);
+}
+
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+    display: none;
+}
+
+input[type='range'] {
+    cursor: pointer;
+    appearance: none;
+    width: 125px;
+    height: 0.5rem;
+    border-radius: 0.25rem;
+    background-color: var(--color-bg-3);
+    box-shadow: inset 0 0 0.1rem var(--color-bg-1);
+    transition: 0.1s ease;
+    overflow: hidden;
+    outline: none;
+}
+
+input[type='range']:disabled {
+    cursor: default;
+    background-color: var(--color-contrast-bg-1);
+}
+
+input[type='range']:focus {
+    box-shadow: inset 0 0 0.25rem var(--color-fg-1);
+}
+
+input[type='range']::-webkit-slider-thumb {
+    appearance: none;
+    height: 0.5rem;
+    width: 20px;
+    background-color: var(--color-bg-3);
+    box-shadow: inset 0 0 0.5rem var(--color-fg-1);
+    border-radius: 0.25rem;
+    border: 0;
+}
+
+input[type='range']::-moz-range-thumb {
+    appearance: none;
+    height: 0.5rem;
+    width: 20px;
+    background-color: var(--color-bg-3);
+    box-shadow: inset 0 0 0.5rem var(--color-fg-1);
+    border-radius: 0.25rem;
+    border: 0;
+}
+
+button {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 1.5rem;
+    text-align: center;
+    font-size: 1rem;
+    color: var(--color-fg-1);
+    background-color: var(--color-bg-3);
+    border: none;
+    border-radius: 0.75rem;
+    box-shadow: inset 0 0 0.25rem var(--color-bg-1);
+    padding: 5px 15px;
+    user-select: none;
+}
+
+button:not(:disabled):active {
+    transform: scale(0.95);
+}
+
+button:disabled {
+    cursor: default;
+    background-color: var(--color-contrast-bg-1);
+}
+
+svg {
+    cursor: pointer;
+}
+svg * {
+    transition: 0.25s;
+}
+
+body {
+    display: grid;
+    grid-template-columns: 1.5rem auto 4.5rem;
+    grid-template-rows: 1.25rem auto 1.25rem;
+    min-height: 100vh;
+    background-color: var(--color-bg-1);
+    color: var(--color-fg-1);
+    font-family: 'Montserrat';
+    font-weight: 500;
+    font-size: 0.925rem;
+}
+
+body.picture {
+    background-image: url(/lake.webp);
+    background-size: cover;
+    background-attachment: fixed;
+    animation: showPicture 0.5s ease;
+}
+
+@keyframes showPicture {
+    0% {
+        box-shadow: inset -100vw 0 0 var(--color-bg-1);
+    }
+    100% {
+        box-shadow: inset 0 0 0 var(--color-bg-1);
+    }
+}
+
+.backgroundOnHide {
+    animation: hidePicture 0.5s ease !important;
+}
+
+@keyframes hidePicture {
+    0% {
+        box-shadow: inset 0 0 0 var(--color-bg-1);
+    }
+    100% {
+        box-shadow: inset -100vw 0 0 var(--color-bg-1);
+    }
+}
+
+body.picture::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: var(--color-bg-coat);
+    z-index: -1;
+}
+
+::selection {
+    color: var(--color-contrast-fg-1);
+    background-color: var(--color-contrast-bg-2);
+}
+
+::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
+    background-color: var(--color-bg-1);
+}
+::-webkit-scrollbar-thumb {
+    background-color: var(--color-fg-1);
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-fg-2);
+}
+::-webkit-scrollbar-thumb:active {
+    background-color: var(--color-fg-3);
+}
+::-webkit-scrollbar-corner {
+    background-color: var(--color-bg-1);
+}
+
+textarea::-webkit-scrollbar {
+    width: 0.6rem;
+    height: 0.6rem;
+    background-color: transparent;
+}
+
+textarea::-webkit-scrollbar-thumb {
+    cursor: default;
+    border: solid transparent;
+    border-width: 0.25rem;
+    border-radius: .5rem;
+    background-color: var(--color-fg-1);
+    background-clip: padding-box;
+}
+
+.tippy-box[data-theme~='standard'] {
+    background-color: var(--color-fg-1);
+    color: var(--color-bg-1);
+    font-size: 0.75rem;
+    border-radius: 0.5rem;
+    padding: 10px;
+    box-shadow: inset 0 0 0.25rem var(--color-bg-3);
+}
+
+.tippy-box[data-theme~='standard'] > .tippy-content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tippy-box[data-theme~='standard'] > .tippy-arrow {
+    position: absolute;
+    top: 0px;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+}
+
+.tippy-box[data-theme~='standard'][data-placement^='left'] > .tippy-arrow {
+    right: -5px;
+    border-left: 5.75px solid var(--color-fg-1);
+}
+
+.tippy-box[data-theme~='standard'][data-placement^='right'] > .tippy-arrow {
+    left: -5px;
+    border-right: 5.75px solid var(--color-fg-1);
+}
